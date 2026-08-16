@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reasons Why I Love You</title>
+    <style>
+        :root {
+            --bg-color: #f0f7ff;
+            --card-bg: #ffffff;
+            --primary-color: #1a73e8;
+            --text-color: #2c3e50;
+            --accent-color: #d2e3fc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.15);
+            position: relative;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 2rem;
+        }
+
+        .counter {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        /* Custom Audio Player Layout */
+        .audio-player-container {
+            background: var(--accent-color);
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin: 0 auto 25px auto;
+            max-width: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: inset 0 2px 5px rgba(255,107,107,0.05);
+        }
+
+        .track-info {
+            text-align: left;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .track-title {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .play-pause-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            box-shadow: 0 3px 8px rgba(255,107,107,0.3);
+            transition: all 0.2s ease;
+        }
+
+        .play-pause-btn:hover {
+            background-color: #fa5252;
+            transform: scale(1.05);
+        }
+
+        .reason-box {
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
+            background: var(--accent-color);
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+        }
+
+        .main-action-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .main-action-btn:hover {
+            background-color: #fa5252;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .main-action-btn:disabled {
+            background-color: #cccccc;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Reasons Why I Love You ❤️</h1>
+        <div class="counter" id="counter">Click below to start your surprise!</div>
+        
+        
+        <div class="audio-player-container">
+            <div class="track-info">
+                <div class="track-title">Your Universe</div>
+                <div>Rico Blanco</div>
+            </div>
+            <button class="play-pause-btn" id="audio-control" onclick="toggleAudio()">Play</button>
+        </div>
+
+        
+        <audio id="bg-music" loop preload="auto">
+            <source src="https://archive.org" type="audio/mp3">
+        </audio>
+        
+        <div class="reason-box" id="reason-display">
+            I wrote down 340 reasons why I love you because why not?. Click the button to read them one by one.
+        </div>
+
+        <button class="main-action-btn" id="next-btn" onclick="showRandomReason()">Generate a Reason</button>
+    </div>
+
+        <script>
+        const allReasons = [
+            "I love your smile",
+            "I love your humor",
+            "I love your sense of fashion",
+            "I love your unique taste",
+            "I love your music choices",
+            "I love the way you're kind to everyone",
+            "I love the way you're shy",
+            "I love the way you're awesome",
+            "I love the way you're honest",
+            "I love that your a woman of God",
+            "I love the way you're brave",
+            "I love the way you're beautiful",
+            "I love the way you accept me",
+            "I love your favorites",
+            "I love that you're so sweet to me",
+            "I love that you're outgoing",
+            "I love your reassurance",
+            "I love the way you kiss me :>",
+            "I love the way you don't wanna kiss me",
+            "I love the way you don't wanna get kissed on your neck",
+            "I love how you hug me",
+            "I love how I can hug you",
+            "I love how you react at my pictures",
+            "I love what you value",
+            "I love your soul",
+            "I love your spirit",
+            "I love your mind",
+            "I love how you admit your mistakes",
+            "I love how you make me feel safe",
+            "I love how you can be so happy",
+            "I love when you're so happy with me",
+            "I love who you really are",
+            "I love your brown eyes",
+            "I love how you fought for our relationship",
+            "I love when you cheer me up",
+            "I love when you do your best",
+            "I love how you can love who I really am",
+            "I love when you try to always be safe",
+            "I love when you always try to think of me",
+            "I love how you think of others",
+            "I love how you update me as much as possible",
+            "I love how you comfort me",
+            "I love how you look out for me",
+            "I love how you can understand me",
+            "I love the way you try to love me",
+            "I love when you stood up for me",
+            "I love when you stood up for yourself",
+            "I love when you do your best for us",
+            "I love when you do your best for yourself",
+            "I love when you do your best for school",
+            "I love when you hold my hand",
+            "I love when you squeeze my cheeks",
+            "I love how you laugh",
+            "I love how you make my day better",
+            "I love how you hold onto my arm",
+            "I love how you try not to be a burden for me (you're not po <3)",
+            "I love your competitivity",
+            "I love how you get annoyed easily",
+            "I love how you can be trusted",
+            "I love when you tickle me",
+            "I love how I can tickle you",
+            "I love how you can be weird with me",
+            "I love when you manage most of our situations",
+            "I love how you are protective of your plushies",
+            "I love that you love plushies",
+            "I love your selfies",
+            "I love how you make me feel safe",
+            "I love how you ask for pictures",
+            "I love how you can be so comforting",
+            "I love your hair",
+            "I love your mouth :>",
+            "I love your cheeks",
+            "I love your thighs :>",
+            "I love your hands",
+            "I love your body..?",
+            "I love how you motivate me to be better",
+            "I love how my heart felt towards you.",
+            "I love how you can be befriended easily",
+            "I love how I can be open to you",
+            "I love how we can be stupid :>",
+            "I love how we can be annoying",
+            "I love that you match my energy",
+            "I love that you want me to succeed",
+            "I love that you healed me from my past",
+            "I love that you help me from my problems",
+            "I love that you call me handsome",
+            "I love that you call me cute",
+            "I love that you're cute :>",
+            "I love that you provide my happiness",
+            "I love that you're pure of heart",
+            "I love that you don't disregard yourself",
+            "I love that you're proud of yourself",
+            "I love that you're full of energy",
+            "I love how we always talk things out",
+            "I love when you gave me gifts",
+            "I love our little dates",
+            "I love those funny memories",
+            "I love that we are fixing things",
+            "I love how we are trying better",
+            "I love your little gestures",
+            "I love your consistency",
+            "I love how you yap",
+            "I love how you share your moments",
+            "I love how you open up to me",
+            "I love you respect me",
+            "I love how you still try to provide to me",
+            "I love how you choose me everyday",
+            "I love how you randomly pop up to my mind",
+"I love how I can stare at your pictures (you so pretty baby)",
+"I love how you make me feel cared for",
+"I love how I am valued by you",
+"I love how you listen to my rants",
+"I love when you stand by me at my worst times",
+"I love when you're proud of my little achievements",
+"I love how you inspire me to do my best",
+"I love how you still remember tiny details",
+"I love how you make me feel calm",
+"I love how we can joke most of the time",
+"I love the pleasing sense of happiness together",
+"I love how you make me feel shy (I'm not pogi :<)",
+"I love how you make my days unique",
+"I love how you look at me with warmth",
+"I love how you feel like my home",
+"I love how I wanna pursue you",
+"I love how we plan for the future",
+"I love how we are comfortable with each other",
+"I love how you defend my peace",
+"I love how you make my soul at peace",
+"I love how you love my flaws",
+"I love your flaws",
+"I love how you make my morning better",
+"I love how you view the world",
+"I love how you don't expect much from me",
+"I love how you share your things to me",
+"I love how you look adorable",
+"I love your curiosity",
+"I love your advice you give me",
+"I love how you are creative",
+"I love how you surprise me",
+"I love how passionate you are to things",
+"I love your presence via call",
+"I love how you act",
+"I love how you sing",
+"I love how you smell",
+"I love your heart.",
+"I love how important I am to you",
+"I love how important you are to me",
+"I love how you believe in me",
+"I love how you bring peace",
+"I love how I am your number 1",
+"I love how you stayed with me",
+"I love how you forgive others",
+"I love how you treat me",
+"I love how you make me feel lucky",
+"I love how you notice my mood",
+"I love how you take initiative",
+"I love how I can stare at your eyes",
+"I love how you rest on me",
+"I love how you play my hair",
+"I love how you look in your outfits",
+"I love how you giggle :>",
+"I love how you present your grace",
+"I love your graceful presence",
+"I love how you are always sleepy",
+"I love how you are cute even when angry",
+"I love your history",
+"I love how you grew into this strong woman :>",
+"I love how you keep learning",
+"I love how silly you are",
+"I love how resilient you are",
+"I love how we think of us in the future",
+"I love how our dreams are apart of us",
+"I love how we build our foundation",
+"I love our shared goals",
+"I love how supportive you are to me",
+"I love the thoughts of our happy futures",
+"I love how you happy you are watching",
+"I love how you call me (ga)",
+"I love how you call me (inaro)",
+"I love how you love characters",
+"I love your cute little habits",
+"I love how you beg for pictures (so cute)",
+"I love how we met",
+"I love our first conversation",
+"I love how awkward our conversations can be",
+"I love how you felt different",
+"I love how I used your favorites the day we were real",
+"I love how I genuinely felt for you",
+"I love how you wanna give back when I give you a gift",
+"I love how you wanna show your appreciation to me",
+"I love how you give me random compliments",
+"I love our chemistry being together",
+"I love that you know my schedule",
+"I love how you make time for me",
+"I love your voice",
+"I love our voice calls",
+"I love how we sleep on the phone",
+"I love how we always apologize",
+"I love how you randomly hug me (please do more :<)",
+"I love how strong you are",
+"I love how you've changed",
+"I love how deeply you care",
+"I love your emotional intelligence",
+"I love your work ethics",
+"I love how confident you are",
+"I love how confident you make me feel",
+"I love how you just be yourself",
+"I love how you cry",
+"I love how you're so kissable",
+"I love how you hair looks and feels",
+"I love how you eat",
+"I love how you hold my hand when it is warm",
+"I love how touchy you can be",
+"I love how you let me touch you..?",
+"I love how you stretch your arms up",
+"I love how sleepy you are",
+"I love how you adore me",
+"I love how you look with my jacket",
+"I love how you feel without me wearing a jacket",
+"I love how we swap jackets",
+"I love how you get protective of your pictures",
+"I love how small you are",
+"I love your cute height",
+"I love how your voice changes",
+"I love how you look with makeup",
+"I love how you look without makeup :>",
+"I love your natural beauty",
+"I love how we text so easily",
+"I love how our conversation changes",
+"I love the awkwardness in calls",
+"I love how you double text",
+"I love how you offer me food",
+"I love how you have preferences",
+"I love how you can't decide on your drinks",
+"I love how you know my favorites",
+"I love how messy you can be",
+"I love how patient you are",
+"I love how you drag me",
+"I love how you point things out",
+"I love how you react to animals",
+"I love how friendly you are to animals",
+"I love how cute you interact with animals",
+"I love how you randomly chat that you miss me",
+"I love how you care for your plushies",
+"I love how you handle your moody days",
+"I love when you tell me when you are moody",
+"I love how you lambing me",
+"I love how you need lambing",
+"I love how I don't need to act strong with you",
+"I love how you call me by name (when I did something wrong)",
+"I love how I notice you in the crowds",
+"I love how you only get my attention",
+"I love how you don't want me to carry your bag",
+"I love how we spend time together at school",
+"I love your constant updates",
+"I love how we have a common friend group",
+"I love how I am accepted by your friends",
+"I love how you make me excited on Mondays",
+"I love how you make me hate Fridays",
+"I love how we can look back at the past where it all began",
+"I love our little and huge memories",
+"I love how strong we are going nearing 1 year",
+"I love how I sometimes walk you home",
+"I love how you want me safe",
+"I love how you don't want me worried",
+"I love how I feel when you text me",
+"I love how we are concerned on our surroundings",
+"I love how we are both careful",
+"I love our little eye contact",
+"I love how you send cute pictures",
+"I love how we ask for help",
+"I love how we help each other on activities",
+"I love how we motivate each other",
+"I love how we share our things",
+"I love how we always support one another",
+"I love how you dress for activities",
+"I love how our classmates know us",
+"I love how our classmates are so supportive for us",
+"I love how alone we can be",
+"I love our little moments together",
+"I love how you randomly sing songs",
+"I love how you adore capybaras",
+"I love how you keep getting Nestea",
+"I love how we keep going on dates",
+"I love how you play with my hand",
+"I love how cute you look in my jackets",
+"I love how we kissed on the arcade",
+"I love how you let me meet your cousins",
+"I love how serious you can be",
+"I love how you can choose me over your friends",
+"I love how talented you are",
+"I love how you make me feel different",
+"I love how I am pinned on your phone",
+"I love how you insist of paying me back",
+"I love how we have our school spots",
+"I love how we have similar favorites",
+"I love how we get to talk to everyday",
+"I love how you don't hide things from me",
+"I love when we always miss each other",
+"I love how we love one another",
+"I love how you don't judge me",
+"I love how I'm putting these efforts for you",
+"I love how I made this html for you",
+"I love how I randomly came up of this idea for you",
+"I love how dedicated you are to me",
+"I love how protective you are of me",
+"I love that you are my one and only",
+"I love how you are my only Ayisha",
+"I love how simplistic you are",
+"I love how you save my photos",
+"I love how we get to have alone time at school",
+"I love how you try to prove I am your only one",
+"I love how you are my favorite person ever",
+"I love how you make me feel worried every time",
+"I love how you're gonna make my life the best",
+"I love how you know what I need and want",
+"I love how we fight on who loves each other more",
+"I love how we fight for last chats",
+"I love how proud you are",
+"I love how we remember our special days",
+"I love how we exchange long messages",
+"I love how we want the best for one another",
+"I love how we want the other to enjoy without the other",
+"I love how we use each others' chats",
+"I love how you look at me with warmth",
+"I love how secure I feel at the future with you",
+"I love how you want my hair to be cut",
+"I love how you chat me immediately after something",
+"I love how you want to present me to your family",
+"I love this reality where we are together"];
+
+        let remainingReasons = [...allReasons];
+        let viewedCount = 0;
+        let musicStarted = false;
+
+        const audio = document.getElementById("bg-music");
+        const audioBtn = document.getElementById("audio-control");
+
+        
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                audioBtn.innerText = "Pause";
+                musicStarted = true;
+            } else {
+                audio.pause();
+                audioBtn.innerText = "Play";
+            }
+        }
+
+        function showRandomReason() {
+            const displayBox = document.getElementById("reason-display");
+            const counterText = document.getElementById("counter");
+            const button = document.getElementById("next-btn");
+
+            
+            if (!musicStarted) {
+                audio.play().then(() => {
+                    audioBtn.innerText = "Pause";
+                    musicStarted = true;
+                }).catch(err => console.log("Audio waiting for user gesture check flag."));
+            }
+
+            if (remainingReasons.length === 0) {
+                displayBox.innerHTML = "I love you because I chose you, and it made me love you more for loving you, was the easiest thing I have ever done, my love. I love you so much My Ayisha. ❤️";
+                counterText.innerHTML = "Completed: 340 / 340";
+                button.disabled = true;
+                button.innerText = "All Wrapped Up!";
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * remainingReasons.length);
+            const selectedReason = remainingReasons.splice(randomIndex, 1);
+            viewedCount++;
+
+            displayBox.innerHTML = `"${selectedReason}"`;
+            counterText.innerHTML = `Reason ${viewedCount} of 340`;
+            button.innerText = "See Next Reason";
+        }
+    </script>
+</body>
+</html>
